@@ -128,6 +128,72 @@
         .step-indicator.completed ~ .step-line {
             background: #10b981;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .step-circle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .step-line {
+                min-width: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem !important;
+            }
+
+            h2 {
+                font-size: 1.75rem !important;
+            }
+
+            .gradient-bg .text-4xl {
+                font-size: 1.875rem !important;
+            }
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip-content {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1f2937;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            margin-bottom: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+            z-index: 1000;
+        }
+
+        .tooltip-content::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #1f2937;
+        }
+
+        .tooltip:hover .tooltip-content {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -154,6 +220,34 @@
 
 <!-- Main Content -->
 <main class="container mx-auto px-6 py-12">
+
+    <!-- First Time User Tutorial Banner -->
+    <div id="tutorial-banner" class="hidden max-w-5xl mx-auto mb-8 bg-gradient-to-r from-purple-100 to-indigo-100 border-2 border-purple-300 rounded-xl p-6 shadow-lg">
+        <div class="flex items-start justify-between">
+            <div class="flex items-start space-x-4">
+                <div class="bg-purple-600 text-white rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-lightbulb text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-2">
+                        👋 Welcome! Here's how to create your first demo video:
+                    </h3>
+                    <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+                        <li><strong>Upload</strong> up to 10 screenshots of your product</li>
+                        <li><strong>Describe</strong> your product and let AI write your script</li>
+                        <li><strong>Customize</strong> voice, music, and template</li>
+                        <li><strong>Generate</strong> and download in multiple formats!</li>
+                    </ol>
+                    <p class="text-xs text-gray-600 mt-3">
+                        <i class="fas fa-save mr-1"></i> Your progress is automatically saved
+                    </p>
+                </div>
+            </div>
+            <button id="close-tutorial" class="text-gray-400 hover:text-gray-600 ml-4">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+    </div>
 
     <!-- Example Gallery (Collapsible) -->
     <section id="example-gallery-section" class="mb-12">
@@ -649,6 +743,200 @@
                         ★★★★★
                     </div>
                     <p class="text-gray-700 italic">"As a solo founder, I don't have time for video editing. This tool is a game-changer."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Integration Badges -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <p class="text-center text-gray-500 text-sm font-semibold mb-6">INTEGRATES WITH</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 opacity-60">
+                <div class="flex items-center space-x-2">
+                    <i class="fab fa-product-hunt text-3xl text-orange-600"></i>
+                    <span class="font-bold">Product Hunt</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fab fa-twitter text-3xl text-blue-400"></i>
+                    <span class="font-bold">Twitter</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fab fa-linkedin text-3xl text-blue-700"></i>
+                    <span class="font-bold">LinkedIn</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fab fa-youtube text-3xl text-red-600"></i>
+                    <span class="font-bold">YouTube</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-network-wired text-3xl text-purple-600"></i>
+                    <span class="font-bold">n8n</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                    Everything You Need to Go Viral
+                </h2>
+                <p class="text-gray-600">All features included. No hidden costs.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">Unlimited Videos</p>
+                        <p class="text-sm text-gray-600">Create as many demo videos as you need</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">8 AI Voices</p>
+                        <p class="text-sm text-gray-600">Professional male & female voices</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">Multi-Format Export</p>
+                        <p class="text-sm text-gray-600">16:9, 9:16, 1:1 - All platforms</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">10 Music Tracks</p>
+                        <p class="text-sm text-gray-600">Royalty-free background music</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">Auto Captions</p>
+                        <p class="text-sm text-gray-600">Increase engagement by 40%</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">6 Templates</p>
+                        <p class="text-sm text-gray-600">Optimized for different platforms</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">Commercial License</p>
+                        <p class="text-sm text-gray-600">Use for client projects</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3 p-4 bg-green-50 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600 text-xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-gray-800">Priority Support</p>
+                        <p class="text-sm text-gray-600">Get help when you need it</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                    Frequently Asked Questions
+                </h2>
+                <p class="text-gray-600">Everything you need to know</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="1">
+                        <span>How long does it take to create a video?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        Most videos are generated in under 60 seconds! Upload your screenshots, let AI write your script, customize the voice and music, and you're done. The actual processing time depends on video length and selected formats.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="2">
+                        <span>Do I need video editing skills?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        Absolutely not! Our tool is designed for founders and makers with zero video editing experience. Just upload screenshots, describe your product, and we handle the rest. No complex software, no learning curve.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="3">
+                        <span>Can I use the videos for commercial purposes?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        Yes! All videos come with a commercial license. Use them for your own products, client projects, marketing campaigns, or even resell them. The music tracks are 100% royalty-free.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="4">
+                        <span>What formats can I export to?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        You can export in three aspect ratios: 16:9 (landscape for YouTube/landing pages), 9:16 (vertical for TikTok/Instagram Stories), and 1:1 (square for LinkedIn/Twitter/Facebook). Generate all three at once!
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="5">
+                        <span>How does the AI voiceover work?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        Choose from 8 professional AI voices (male and female, different accents). The AI reads your script naturally with proper intonation and pacing. You can adjust the speed from 0.75x to 1.5x to match your preference.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="6">
+                        <span>Is there a limit on how many videos I can create?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        No limits! Create unlimited demo videos for all your products, updates, and launches. Perfect for agencies managing multiple clients or solo founders with multiple projects.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="7">
+                        <span>What if I don't like the generated video?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        You can edit the AI-generated script before creating the video, change the voice, music, template, and regenerate as many times as needed. Each element is customizable to match your brand perfectly.
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm">
+                    <button class="faq-question w-full text-left p-6 font-bold text-gray-800 flex items-center justify-between hover:text-purple-600 transition-colors" data-faq="8">
+                        <span>Do you offer refunds?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer hidden p-6 pt-0 text-gray-600">
+                        Yes! We offer a 60-day money-back guarantee. If you're not satisfied with the tool for any reason, just reach out and we'll issue a full refund. No questions asked.
+                    </div>
                 </div>
             </div>
         </div>

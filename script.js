@@ -152,6 +152,20 @@ function initializeEventListeners() {
 
     // Email capture
     document.getElementById('email-capture-form').addEventListener('submit', handleEmailCapture);
+
+    // FAQ toggles
+    document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', toggleFAQ);
+    });
+
+    // Tutorial banner
+    const closeTutorial = document.getElementById('close-tutorial');
+    if (closeTutorial) {
+        closeTutorial.addEventListener('click', hideTutorial);
+    }
+
+    // Show tutorial for first-time users
+    showTutorialIfNeeded();
 }
 
 // ====================================
@@ -827,6 +841,149 @@ function handleEmailCapture(e) {
             submitBtn.disabled = false;
         }, 3000);
     }, 1500);
+}
+
+function toggleFAQ(e) {
+    const question = e.currentTarget;
+    const answer = question.nextElementSibling;
+    const icon = question.querySelector('i');
+
+    // Close all other FAQs
+    document.querySelectorAll('.faq-answer').forEach(a => {
+        if (a !== answer) {
+            a.classList.add('hidden');
+            a.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+        }
+    });
+
+    // Toggle current FAQ
+    answer.classList.toggle('hidden');
+
+    if (answer.classList.contains('hidden')) {
+        icon.style.transform = 'rotate(0deg)';
+    } else {
+        icon.style.transform = 'rotate(180deg)';
+    }
+}
+
+// ====================================
+// LOCAL STORAGE - SAVE PROGRESS
+// ====================================
+
+function saveProgress() {
+    const progress = {
+        screenshots: state.screenshots,
+        productInfo: state.productInfo,
+        generatedScript: state.generatedScript,
+        selectedTemplate: state.selectedTemplate,
+        selectedVoice: state.selectedVoice,
+        voiceSpeed: state.voiceSpeed,
+        selectedMusic: state.selectedMusic,
+        selectedFormats: state.selectedFormats,
+        captions: state.captions,
+        watermark: state.watermark,
+        currentStep: state.currentStep,
+        savedAt: new Date().toISOString()
+    };
+
+    try {
+        localStorage.setItem('demoVideoMaker_progress', JSON.stringify(progress));
+        console.log('[STORAGE] Progress saved');
+    } catch (error) {
+        console.error('[STORAGE] Failed to save progress:', error);
+    }
+}
+
+function loadProgress() {
+    try {
+        const saved = localStorage.getItem('demoVideoMaker_progress');
+        if (!saved) return false;
+
+        const progress = JSON.parse(saved);
+
+        // Check if saved data is less than 24 hours old
+        const savedTime = new Date(progress.savedAt);
+        const now = new Date();
+        const hoursDiff = (now - savedTime) / (1000 * 60 * 60);
+
+        if (hoursDiff > 24) {
+            localStorage.removeItem('demoVideoMaker_progress');
+            return false;
+        }
+
+        // Restore state
+        state.screenshots = progress.screenshots || [];
+        state.productInfo = progress.productInfo || {};
+        state.generatedScript = progress.generatedScript || '';
+        state.selectedTemplate = progress.selectedTemplate || 'product-hunt-launcher';
+        state.selectedVoice = progress.selectedVoice || 'female-excited';
+        state.voiceSpeed = progress.voiceSpeed || 1.0;
+        state.selectedMusic = progress.selectedMusic || 'startup-energy';
+        state.selectedFormats = progress.selectedFormats || ['16:9'];
+        state.captions = progress.captions !== undefined ? progress.captions : true;
+        state.watermark = progress.watermark || false;
+
+        // Restore UI
+        if (progress.screenshots && progress.screenshots.length > 0) {
+            renderScreenshots();
+        }
+
+        console.log('[STORAGE] Progress loaded');
+        return true;
+    } catch (error) {
+        console.error('[STORAGE] Failed to load progress:', error);
+        return false;
+    }
+}
+
+function clearProgress() {
+    localStorage.removeItem('demoVideoMaker_progress');
+    console.log('[STORAGE] Progress cleared');
+}
+
+// Auto-save on state changes
+window.addEventListener('beforeunload', () => {
+    if (state.screenshots.length > 0 || state.generatedScript) {
+        saveProgress();
+    }
+});
+
+// Load progress on init
+document.addEventListener('DOMContentLoaded', () => {
+    const hasProgress = loadProgress();
+    if (hasProgress && state.screenshots.length > 0) {
+        showNotification('Previous session restored!', 'success');
+    }
+});
+
+// ====================================
+// TUTORIAL / ONBOARDING
+// ====================================
+
+function showTutorialIfNeeded() {
+    const hasSeenTutorial = localStorage.getItem('demoVideoMaker_tutorialSeen');
+    const banner = document.getElementById('tutorial-banner');
+
+    if (!hasSeenTutorial && banner) {
+        banner.classList.remove('hidden');
+    }
+}
+
+function hideTutorial() {
+    const banner = document.getElementById('tutorial-banner');
+    if (banner) {
+        banner.style.transition = 'opacity 0.3s, transform 0.3s';
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(-20px)';
+
+        setTimeout(() => {
+            banner.classList.add('hidden');
+            banner.style.opacity = '1';
+            banner.style.transform = 'translateY(0)';
+        }, 300);
+
+        localStorage.setItem('demoVideoMaker_tutorialSeen', 'true');
+    }
 }
 
 console.log('[INIT] Demo Video Maker loaded successfully');
