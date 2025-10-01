@@ -1,0 +1,118 @@
+{
+  "templates": [
+    {
+      "id": "product-hunt-launcher",
+      "name": "Product Hunt Launcher",
+      "description": "Optimized for Product Hunt launches - trending music, auto-captions, 60s perfect length",
+      "icon": "rocket",
+      "duration": "60s",
+      "aspectRatio": ["16:9", "9:16", "1:1"],
+      "features": [
+        "Auto-captions for silent viewing",
+        "Trending transitions",
+        "Upbeat background music",
+        "Fast-paced cuts (3s per screenshot)"
+      ],
+      "bestFor": "Product Hunt, Indie Hackers, Twitter",
+      "popular": true,
+      "transitionStyle": "zoom-in",
+      "pace": "fast",
+      "captionsDefault": true
+    },
+    {
+      "id": "landing-page-hero",
+      "name": "Landing Page Hero",
+      "description": "Professional, clean demo for your landing page hero section",
+      "icon": "desktop",
+      "duration": "30s",
+      "aspectRatio": ["16:9"],
+      "features": [
+        "Clean, minimal transitions",
+        "Professional voiceover",
+        "Subtle background music",
+        "Slower pace for clarity"
+      ],
+      "bestFor": "Landing pages, Website headers",
+      "popular": true,
+      "transitionStyle": "fade",
+      "pace": "medium",
+      "captionsDefault": false
+    },
+    {
+      "id": "twitter-demo",
+      "name": "Twitter/X Demo",
+      "description": "Eye-catching, fast-paced demo optimized for Twitter engagement",
+      "icon": "twitter",
+      "duration": "45s",
+      "aspectRatio": ["16:9", "9:16", "1:1"],
+      "features": [
+        "Fast cuts for attention",
+        "Bold text overlays",
+        "Trending music",
+        "Loop-friendly ending"
+      ],
+      "bestFor": "Twitter, LinkedIn, Social media",
+      "popular": true,
+      "transitionStyle": "slide",
+      "pace": "fast",
+      "captionsDefault": true
+    },
+    {
+      "id": "linkedin-professional",
+      "name": "LinkedIn Professional",
+      "description": "Corporate, authoritative demo for B2B audiences",
+      "icon": "briefcase",
+      "duration": "90s",
+      "aspectRatio": ["16:9", "1:1"],
+      "features": [
+        "Professional tone",
+        "Data-driven messaging",
+        "Subtle transitions",
+        "Corporate background music"
+      ],
+      "bestFor": "LinkedIn, B2B marketing, Sales",
+      "popular": false,
+      "transitionStyle": "fade",
+      "pace": "slow",
+      "captionsDefault": true
+    },
+    {
+      "id": "feature-showcase",
+      "name": "Quick Feature Showcase",
+      "description": "Rapid-fire feature highlights - perfect for social media ads",
+      "icon": "zap",
+      "duration": "30s",
+      "aspectRatio": ["16:9", "9:16", "1:1"],
+      "features": [
+        "Highlight key features only",
+        "Fast transitions",
+        "Energetic music",
+        "Bold feature callouts"
+      ],
+      "bestFor": "Facebook ads, Instagram stories, TikTok",
+      "popular": true,
+      "transitionStyle": "zoom-in",
+      "pace": "fast",
+      "captionsDefault": true
+    },
+    {
+      "id": "story-format",
+      "name": "Instagram Story",
+      "description": "Vertical format optimized for Instagram/TikTok stories",
+      "icon": "smartphone",
+      "duration": "15s",
+      "aspectRatio": ["9:16"],
+      "features": [
+        "Vertical 9:16 format",
+        "Thumb-stopping hook",
+        "Text-heavy for no-sound viewing",
+        "Swipe-up CTA ready"
+      ],
+      "bestFor": "Instagram Stories, TikTok, Snapchat",
+      "popular": true,
+      "transitionStyle": "slide",
+      "pace": "very-fast",
+      "captionsDefault": true
+    }
+  ]
+}

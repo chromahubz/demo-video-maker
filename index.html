@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Video Maker - Screenshots to Professional Videos in 60s</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Sortable JS for drag and drop reordering -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .screenshot-item {
+            transition: all 0.2s;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.05);
+        }
+
+        .screenshot-item.sortable-ghost {
+            opacity: 0.4;
+        }
+
+        .template-card {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .template-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.35s;
+        }
+
+        /* Dark mode styles */
+        .dark {
+            background: #1a202c;
+            color: #f7fafc;
+        }
+
+        .dark .bg-white {
+            background: #2d3748 !important;
+        }
+
+        .dark .text-gray-800 {
+            color: #f7fafc !important;
+        }
+
+        .dark .text-gray-600 {
+            color: #cbd5e0 !important;
+        }
+
+        .dark .border-gray-200 {
+            border-color: #4a5568 !important;
+        }
+
+        /* Step indicator styles */
+        .step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .step-indicator.active .step-circle {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step-indicator.completed .step-circle {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .step-indicator.active .step-label {
+            color: #667eea;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: #e5e7eb;
+        }
+
+        .step-indicator.completed ~ .step-line {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Header -->
+<header class="gradient-bg text-white py-6 shadow-lg">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-film text-4xl"></i>
+                <div>
+                    <h1 class="text-3xl font-bold">Demo Video Maker</h1>
+                    <p class="text-sm opacity-90">Screenshots → Professional Videos in 60 seconds</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="bg-white/20 px-4 py-2 rounded-lg">
+                    <i class="fas fa-rocket mr-2"></i>
+                    <span class="font-bold">500+</span> Product Hunt Launches
+                </div>
+                <button id="dark-mode-toggle" class="p-2 bg-white/20 rounded-lg hover:bg-white/30 transition-all">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container mx-auto px-6 py-12">
+
+    <!-- Example Gallery (Collapsible) -->
+    <section id="example-gallery-section" class="mb-12">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center space-x-2 mb-4">
+                    <div class="bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold text-sm">
+                        <i class="fas fa-fire mr-1"></i> 500+ Product Hunt Launches
+                    </div>
+                    <div class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full font-bold text-sm">
+                        <i class="fas fa-eye mr-1"></i> 2.4M+ Views
+                    </div>
+                    <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-bold text-sm">
+                        <i class="fas fa-thumbs-up mr-1"></i> 94% Success Rate
+                    </div>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                    <i class="fas fa-star mr-2 text-yellow-500"></i>
+                    See What Others Have Created
+                </h2>
+                <p class="text-gray-600">Real demos made by AppSumo customers and Product Hunt launchers</p>
+                <button id="toggle-gallery" class="mt-4 text-purple-600 font-bold hover:text-purple-700">
+                    <i class="fas fa-chevron-down mr-2"></i>
+                    <span id="toggle-text">Show Examples</span>
+                </button>
+            </div>
+
+            <!-- Gallery Grid (Hidden by default) -->
+            <div id="gallery-grid" class="hidden">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="examples-container">
+                    <!-- Examples will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Steps -->
+    <div class="mb-12">
+        <div class="flex justify-between items-center max-w-4xl mx-auto">
+            <div class="step-indicator active" data-step="1">
+                <div class="step-circle">
+                    <i class="fas fa-upload"></i>
+                </div>
+                <p class="step-label">Upload</p>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step-indicator" data-step="2">
+                <div class="step-circle">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <p class="step-label">Script</p>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step-indicator" data-step="3">
+                <div class="step-circle">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <p class="step-label">Customize</p>
+            </div>
+
+            <div class="step-line"></div>
+
+            <div class="step-indicator" data-step="4">
+                <div class="step-circle">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <p class="step-label">Generate</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 1: Upload Screenshots -->
+    <section id="step-1" class="step-content">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-cloud-upload-alt mr-3 text-purple-600"></i>
+                        Upload Your Screenshots
+                    </h2>
+                    <p class="text-gray-600">Drag & drop up to 10 screenshots of your product (PNG, JPG, or WebP)</p>
+                </div>
+
+                <!-- Upload Area -->
+                <div id="upload-area" class="border-4 border-dashed border-purple-300 rounded-xl p-12 text-center hover:border-purple-500 transition-all cursor-pointer bg-purple-50/50">
+                    <i class="fas fa-cloud-upload-alt text-6xl text-purple-400 mb-4"></i>
+                    <p class="text-xl font-bold text-gray-700 mb-2">Click or Drag Screenshots Here</p>
+                    <p class="text-gray-500">Maximum 10 screenshots (5MB each)</p>
+                    <input type="file" id="screenshot-input" accept="image/*" multiple class="hidden">
+                </div>
+
+                <!-- Screenshots Preview Grid -->
+                <div id="screenshots-grid" class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 hidden">
+                    <!-- Screenshots will be added here -->
+                </div>
+
+                <div id="screenshots-count" class="mt-4 text-center text-gray-600 hidden">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    <span id="count-text">0/10 screenshots uploaded</span>
+                    <p class="text-sm mt-2 text-gray-500">Drag to reorder</p>
+                </div>
+
+                <!-- Continue Button -->
+                <div class="mt-8 text-center">
+                    <button id="continue-to-script" disabled class="px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-700 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                        Continue to Script <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 2: Generate Script -->
+    <section id="step-2" class="step-content hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-pen-fancy mr-3 text-purple-600"></i>
+                        Tell Us About Your Product
+                    </h2>
+                    <p class="text-gray-600">AI will generate a professional demo script for you</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <!-- Product Name -->
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">Product Name</label>
+                        <input
+                            type="text"
+                            id="product-name"
+                            placeholder="e.g., TaskMaster Pro"
+                            class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                        >
+                    </div>
+
+                    <!-- Product Category -->
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">Category</label>
+                        <select id="product-category" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none">
+                            <option value="">Select category...</option>
+                            <option value="saas">SaaS / Software</option>
+                            <option value="mobile-app">Mobile App</option>
+                            <option value="web-app">Web App</option>
+                            <option value="productivity">Productivity Tool</option>
+                            <option value="design">Design Tool</option>
+                            <option value="marketing">Marketing Tool</option>
+                            <option value="ai">AI / ML Tool</option>
+                            <option value="ecommerce">E-commerce</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Product Description -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2">Product Description</label>
+                    <textarea
+                        id="product-description"
+                        rows="4"
+                        placeholder="Describe what your product does and its key benefits..."
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                    ></textarea>
+                    <p class="text-sm text-gray-500 mt-2">Be specific about what problems it solves</p>
+                </div>
+
+                <!-- Key Features -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2">Key Features (one per line)</label>
+                    <textarea
+                        id="product-features"
+                        rows="3"
+                        placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none"
+                    ></textarea>
+                </div>
+
+                <!-- Script Length -->
+                <div class="mb-6">
+                    <label class="block text-gray-700 font-bold mb-2">Video Length</label>
+                    <div class="grid grid-cols-4 gap-3">
+                        <button class="script-length-btn active" data-length="30">30s</button>
+                        <button class="script-length-btn" data-length="60">60s</button>
+                        <button class="script-length-btn" data-length="90">90s</button>
+                        <button class="script-length-btn" data-length="120">2min</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-4">
+                    <button id="back-to-upload" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-bold hover:bg-gray-300 transition-all">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button id="generate-script-btn" class="flex-1 px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-700 transition-all shadow-lg">
+                        <i class="fas fa-magic mr-2"></i> Generate Script with AI
+                    </button>
+                </div>
+
+                <!-- Generated Script (Hidden initially) -->
+                <div id="generated-script-container" class="mt-8 hidden">
+                    <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">
+                                <i class="fas fa-file-alt mr-2 text-purple-600"></i>
+                                Generated Script
+                            </h3>
+                            <button id="edit-script-btn" class="text-purple-600 hover:text-purple-700 font-bold">
+                                <i class="fas fa-edit mr-1"></i> Edit
+                            </button>
+                        </div>
+                        <div id="script-preview" class="text-gray-700 leading-relaxed whitespace-pre-wrap"></div>
+                        <div class="mt-4 flex items-center justify-between text-sm text-gray-600">
+                            <span><i class="fas fa-clock mr-1"></i> Estimated read time: <span id="read-time">0s</span></span>
+                            <span><i class="fas fa-text-width mr-1"></i> Word count: <span id="word-count">0</span></span>
+                        </div>
+
+                        <button id="continue-to-customize" class="mt-6 w-full px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-700 transition-all shadow-lg">
+                            Continue to Customization <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 3: Customize -->
+    <section id="step-3" class="step-content hidden">
+        <div class="max-w-6xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                        <i class="fas fa-sliders-h mr-3 text-purple-600"></i>
+                        Customize Your Video
+                    </h2>
+                    <p class="text-gray-600">Choose template, voice, music, and more</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Left Column: Templates & Voices -->
+                    <div>
+                        <!-- Template Selection -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-th mr-2"></i> Choose Template
+                            </h3>
+                            <div id="templates-container" class="space-y-3">
+                                <!-- Templates will be loaded here -->
+                            </div>
+                        </div>
+
+                        <!-- Voice Selection -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-microphone-alt mr-2"></i> AI Voiceover
+                            </h3>
+                            <div>
+                                <label class="block text-gray-700 font-semibold mb-2">Select Voice</label>
+                                <select id="voice-select" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none mb-3">
+                                    <!-- Voices will be loaded here -->
+                                </select>
+                                <div id="voice-preview" class="text-sm text-gray-600 italic bg-gray-50 p-3 rounded-lg hidden">
+                                    <!-- Voice sample will appear here -->
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <label class="block text-gray-700 font-semibold mb-2">Speech Speed</label>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" id="voice-speed" min="0.75" max="1.5" step="0.25" value="1.0" class="flex-1">
+                                    <span id="speed-value" class="font-bold text-purple-600">1.0x</span>
+                                </div>
+                                <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                    <span>Slower</span>
+                                    <span>Normal</span>
+                                    <span>Faster</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Music & Formats -->
+                    <div>
+                        <!-- Music Selection -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-music mr-2"></i> Background Music
+                            </h3>
+                            <select id="music-select" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-purple-500 focus:outline-none mb-3">
+                                <!-- Music tracks will be loaded here -->
+                            </select>
+                            <div id="music-preview" class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg hidden">
+                                <!-- Music info will appear here -->
+                            </div>
+                        </div>
+
+                        <!-- Export Formats -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-download mr-2"></i> Export Formats
+                            </h3>
+                            <div class="space-y-3">
+                                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-purple-500 transition-all">
+                                    <input type="checkbox" class="format-checkbox" value="16:9" checked>
+                                    <div class="ml-3">
+                                        <p class="font-bold">16:9 (Landscape)</p>
+                                        <p class="text-sm text-gray-500">YouTube, Landing pages</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-purple-500 transition-all">
+                                    <input type="checkbox" class="format-checkbox" value="9:16">
+                                    <div class="ml-3">
+                                        <p class="font-bold">9:16 (Vertical)</p>
+                                        <p class="text-sm text-gray-500">TikTok, Instagram Stories</p>
+                                    </div>
+                                </label>
+                                <label class="flex items-center p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-purple-500 transition-all">
+                                    <input type="checkbox" class="format-checkbox" value="1:1">
+                                    <div class="ml-3">
+                                        <p class="font-bold">1:1 (Square)</p>
+                                        <p class="text-sm text-gray-500">LinkedIn, Twitter, Facebook</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Additional Options -->
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                                <i class="fas fa-cog mr-2"></i> Options
+                            </h3>
+                            <div class="space-y-3">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="captions-toggle" checked class="mr-3">
+                                    <span class="font-semibold">Add Auto-Captions</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="watermark-toggle" class="mr-3">
+                                    <span class="font-semibold">Add Watermark</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-4 mt-8">
+                    <button id="back-to-script" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-bold hover:bg-gray-300 transition-all">
+                        <i class="fas fa-arrow-left mr-2"></i> Back
+                    </button>
+                    <button id="generate-video-btn" class="flex-1 px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold text-lg hover:from-purple-700 hover:to-indigo-700 transition-all shadow-lg">
+                        <i class="fas fa-magic mr-2"></i> Generate My Demo Video
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Step 4: Processing & Download -->
+    <section id="step-4" class="step-content hidden">
+        <div class="max-w-4xl mx-auto">
+            <!-- Processing State -->
+            <div id="processing-state" class="bg-white rounded-2xl shadow-xl p-12 text-center">
+                <div class="mb-8">
+                    <div class="inline-block relative">
+                        <svg class="progress-ring" width="120" height="120">
+                            <circle cx="60" cy="60" r="54" stroke="#e5e7eb" stroke-width="8" fill="none"/>
+                            <circle id="progress-circle" cx="60" cy="60" r="54" stroke="#667eea" stroke-width="8" fill="none" stroke-dasharray="339.292" stroke-dashoffset="339.292" class="progress-ring-circle"/>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span id="progress-percentage" class="text-2xl font-bold text-purple-600">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                    <i class="fas fa-magic mr-2 text-purple-600"></i>
+                    Creating Your Demo Video
+                </h2>
+                <p id="processing-message" class="text-gray-600 text-lg mb-6">Initializing...</p>
+
+                <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-6 max-w-md mx-auto">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="font-semibold text-gray-700">Estimated time:</span>
+                        <span id="estimated-time" class="font-bold text-purple-600">60 seconds</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold text-gray-700">Status:</span>
+                        <span id="processing-status" class="font-bold text-green-600">Processing</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download State (Hidden initially) -->
+            <div id="download-state" class="bg-white rounded-2xl shadow-xl p-12 hidden">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-green-100 rounded-full mb-4">
+                        <i class="fas fa-check text-5xl text-green-600"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                        Your Demo Videos are Ready!
+                    </h2>
+                    <p class="text-gray-600">Download all formats below or share directly</p>
+                </div>
+
+                <!-- Download Cards -->
+                <div id="download-cards" class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Download cards will be generated here -->
+                </div>
+
+                <!-- Share Options -->
+                <div class="text-center space-y-4">
+                    <div class="flex justify-center gap-4">
+                        <button class="px-6 py-3 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-all">
+                            <i class="fab fa-twitter mr-2"></i> Share on Twitter
+                        </button>
+                        <button class="px-6 py-3 bg-blue-700 text-white rounded-lg font-bold hover:bg-blue-800 transition-all">
+                            <i class="fab fa-linkedin mr-2"></i> Share on LinkedIn
+                        </button>
+                        <button class="px-6 py-3 bg-orange-600 text-white rounded-lg font-bold hover:bg-orange-700 transition-all">
+                            <i class="fab fa-product-hunt mr-2"></i> Share on Product Hunt
+                        </button>
+                    </div>
+
+                    <button id="create-another" class="px-8 py-4 bg-purple-600 text-white rounded-xl font-bold text-lg hover:bg-purple-700 transition-all shadow-lg">
+                        <i class="fas fa-plus mr-2"></i> Create Another Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-8 mt-12">
+    <div class="container mx-auto px-6 text-center">
+        <p class="text-lg font-bold mb-2">
+            <i class="fas fa-film mr-2"></i>Demo Video Maker
+        </p>
+        <p class="text-gray-400 mb-4">Perfect for AppSumo launchers and Product Hunt launches</p>
+        <p class="text-gray-500 text-sm">Made with care for founders and makers</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

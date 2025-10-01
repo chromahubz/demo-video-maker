@@ -1,0 +1,114 @@
+{
+  "voices": [
+    {
+      "id": "female-professional",
+      "name": "Sarah (Professional Female)",
+      "gender": "female",
+      "accent": "american",
+      "tone": "professional",
+      "description": "Clear, authoritative female voice. Perfect for B2B and corporate demos.",
+      "bestFor": ["landing-page-hero", "linkedin-professional"],
+      "popular": true,
+      "sample": "Sample: This is Sarah, a professional female voice perfect for your product demo."
+    },
+    {
+      "id": "male-professional",
+      "name": "David (Professional Male)",
+      "gender": "male",
+      "accent": "american",
+      "tone": "professional",
+      "description": "Deep, confident male voice. Great for enterprise and SaaS products.",
+      "bestFor": ["landing-page-hero", "linkedin-professional"],
+      "popular": true,
+      "sample": "Sample: This is David, a professional male voice ideal for business presentations."
+    },
+    {
+      "id": "female-excited",
+      "name": "Emma (Energetic Female)",
+      "gender": "female",
+      "accent": "american",
+      "tone": "excited",
+      "description": "Upbeat, enthusiastic female voice. Perfect for Product Hunt launches and social media.",
+      "bestFor": ["product-hunt-launcher", "twitter-demo", "feature-showcase"],
+      "popular": true,
+      "sample": "Sample: Hey! This is Emma, bringing energy and excitement to your product launch!"
+    },
+    {
+      "id": "male-casual",
+      "name": "Mike (Casual Male)",
+      "gender": "male",
+      "accent": "american",
+      "tone": "casual",
+      "description": "Friendly, conversational male voice. Great for consumer apps and casual products.",
+      "bestFor": ["twitter-demo", "story-format"],
+      "popular": false,
+      "sample": "Sample: What's up? I'm Mike, here to make your product sound approachable and fun."
+    },
+    {
+      "id": "female-british",
+      "name": "Olivia (British Female)",
+      "gender": "female",
+      "accent": "british",
+      "tone": "professional",
+      "description": "Elegant British accent. Adds sophistication to your product presentation.",
+      "bestFor": ["landing-page-hero", "linkedin-professional"],
+      "popular": false,
+      "sample": "Sample: Hello, I'm Olivia. I bring a touch of British elegance to your demos."
+    },
+    {
+      "id": "male-australian",
+      "name": "Jack (Australian Male)",
+      "gender": "male",
+      "accent": "australian",
+      "tone": "casual",
+      "description": "Laid-back Australian accent. Perfect for friendly, approachable brands.",
+      "bestFor": ["twitter-demo", "feature-showcase"],
+      "popular": false,
+      "sample": "Sample: G'day! I'm Jack, bringing a relaxed Aussie vibe to your product story."
+    },
+    {
+      "id": "female-indian",
+      "name": "Priya (Indian Female)",
+      "gender": "female",
+      "accent": "indian",
+      "tone": "professional",
+      "description": "Clear Indian accent. Great for tech and SaaS products with global appeal.",
+      "bestFor": ["landing-page-hero", "feature-showcase"],
+      "popular": false,
+      "sample": "Sample: Hello, I'm Priya. I deliver clear, professional narration for your tech products."
+    },
+    {
+      "id": "male-young",
+      "name": "Tyler (Young Male)",
+      "gender": "male",
+      "accent": "american",
+      "tone": "excited",
+      "description": "Youthful, energetic male voice. Perfect for startups and innovative products.",
+      "bestFor": ["product-hunt-launcher", "twitter-demo", "story-format"],
+      "popular": true,
+      "sample": "Sample: Yo! I'm Tyler, bringing that startup energy to your product launch!"
+    }
+  ],
+  "speedOptions": [
+    {
+      "value": 0.75,
+      "label": "Slower (0.75x)",
+      "description": "Better for complex products or non-native speakers"
+    },
+    {
+      "value": 1.0,
+      "label": "Normal (1.0x)",
+      "description": "Standard speaking pace - works for most demos"
+    },
+    {
+      "value": 1.25,
+      "label": "Faster (1.25x)",
+      "description": "Fit more content - great for short social videos"
+    },
+    {
+      "value": 1.5,
+      "label": "Very Fast (1.5x)",
+      "description": "Maximum content density - use carefully"
+    }
+  ]
+}

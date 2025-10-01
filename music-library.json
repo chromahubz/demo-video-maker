@@ -1,0 +1,124 @@
+{
+  "tracks": [
+    {
+      "id": "upbeat-corporate",
+      "name": "Upbeat Corporate",
+      "description": "Modern, energetic corporate track perfect for SaaS and tech products",
+      "mood": "energetic",
+      "bpm": 128,
+      "duration": "2:30",
+      "genres": ["corporate", "tech"],
+      "bestFor": ["product-hunt-launcher", "landing-page-hero", "feature-showcase"],
+      "popular": true,
+      "preview": "upbeat-corporate-preview.mp3"
+    },
+    {
+      "id": "tech-innovation",
+      "name": "Tech Innovation",
+      "description": "Futuristic, modern beats for cutting-edge products",
+      "mood": "futuristic",
+      "bpm": 140,
+      "duration": "2:15",
+      "genres": ["tech", "electronic"],
+      "bestFor": ["product-hunt-launcher", "twitter-demo"],
+      "popular": true,
+      "preview": "tech-innovation-preview.mp3"
+    },
+    {
+      "id": "minimal-elegance",
+      "name": "Minimal Elegance",
+      "description": "Subtle, professional background music that doesn't overpower",
+      "mood": "calm",
+      "bpm": 85,
+      "duration": "3:00",
+      "genres": ["ambient", "minimal"],
+      "bestFor": ["landing-page-hero", "linkedin-professional"],
+      "popular": true,
+      "preview": "minimal-elegance-preview.mp3"
+    },
+    {
+      "id": "startup-energy",
+      "name": "Startup Energy",
+      "description": "High-energy track perfect for Product Hunt launches",
+      "mood": "excited",
+      "bpm": 145,
+      "duration": "1:30",
+      "genres": ["electronic", "upbeat"],
+      "bestFor": ["product-hunt-launcher", "twitter-demo", "feature-showcase"],
+      "popular": true,
+      "preview": "startup-energy-preview.mp3"
+    },
+    {
+      "id": "professional-confidence",
+      "name": "Professional Confidence",
+      "description": "Authoritative, corporate track for B2B presentations",
+      "mood": "confident",
+      "bpm": 95,
+      "duration": "2:45",
+      "genres": ["corporate", "professional"],
+      "bestFor": ["linkedin-professional", "landing-page-hero"],
+      "popular": false,
+      "preview": "professional-confidence-preview.mp3"
+    },
+    {
+      "id": "social-viral",
+      "name": "Social Viral",
+      "description": "Trending, catchy tune optimized for social media engagement",
+      "mood": "trendy",
+      "bpm": 150,
+      "duration": "1:00",
+      "genres": ["pop", "trending"],
+      "bestFor": ["twitter-demo", "story-format", "feature-showcase"],
+      "popular": true,
+      "preview": "social-viral-preview.mp3"
+    },
+    {
+      "id": "motivational-rise",
+      "name": "Motivational Rise",
+      "description": "Inspiring, building track that creates emotional impact",
+      "mood": "inspirational",
+      "bpm": 110,
+      "duration": "2:20",
+      "genres": ["cinematic", "motivational"],
+      "bestFor": ["product-hunt-launcher", "landing-page-hero"],
+      "popular": false,
+      "preview": "motivational-rise-preview.mp3"
+    },
+    {
+      "id": "chill-ambient",
+      "name": "Chill Ambient",
+      "description": "Relaxed, atmospheric background perfect for explainer videos",
+      "mood": "relaxed",
+      "bpm": 75,
+      "duration": "3:30",
+      "genres": ["ambient", "chill"],
+      "bestFor": ["landing-page-hero", "linkedin-professional"],
+      "popular": false,
+      "preview": "chill-ambient-preview.mp3"
+    },
+    {
+      "id": "modern-beats",
+      "name": "Modern Beats",
+      "description": "Contemporary electronic beats for modern brands",
+      "mood": "modern",
+      "bpm": 125,
+      "duration": "2:00",
+      "genres": ["electronic", "modern"],
+      "bestFor": ["twitter-demo", "feature-showcase", "story-format"],
+      "popular": true,
+      "preview": "modern-beats-preview.mp3"
+    },
+    {
+      "id": "none",
+      "name": "No Music",
+      "description": "Silent - let your voiceover be the focus",
+      "mood": "silent",
+      "bpm": 0,
+      "duration": "0:00",
+      "genres": ["silent"],
+      "bestFor": ["all"],
+      "popular": false,
+      "preview": null
+    }
+  ]
+}

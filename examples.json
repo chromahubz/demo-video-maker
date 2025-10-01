@@ -1,0 +1,82 @@
+{
+  "examples": [
+    {
+      "id": "taskmaster-pro",
+      "productName": "TaskMaster Pro",
+      "thumbnail": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23667eea' width='400' height='225'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3ETaskMaster Pro%3C/text%3E%3C/svg%3E",
+      "category": "Productivity",
+      "template": "Product Hunt Launcher",
+      "duration": "60s",
+      "format": "16:9",
+      "views": 15420,
+      "upvotes": 432,
+      "description": "AI-powered task management with smart scheduling"
+    },
+    {
+      "id": "designflow",
+      "productName": "DesignFlow AI",
+      "thumbnail": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23764ba2' width='400' height='225'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EDesignFlow AI%3C/text%3E%3C/svg%3E",
+      "category": "Design Tool",
+      "template": "Landing Page Hero",
+      "duration": "90s",
+      "format": "16:9",
+      "views": 28340,
+      "upvotes": 892,
+      "description": "Generate stunning UI designs from text descriptions"
+    },
+    {
+      "id": "chatbot-builder",
+      "productName": "ChatBot Builder",
+      "thumbnail": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%234facfe' width='400' height='225'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EChatBot Builder%3C/text%3E%3C/svg%3E",
+      "category": "AI / ML",
+      "template": "Twitter Demo",
+      "duration": "30s",
+      "format": "9:16",
+      "views": 42100,
+      "upvotes": 1203,
+      "description": "No-code chatbot creation for websites and apps"
+    },
+    {
+      "id": "revenue-tracker",
+      "productName": "Revenue Tracker",
+      "thumbnail": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%2310b981' width='400' height='225'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3ERevenue Tracker%3C/text%3E%3C/svg%3E",
+      "category": "SaaS",
+      "template": "LinkedIn Professional",
+      "duration": "120s",
+      "format": "16:9",
+      "views": 12850,
+      "upvotes": 356,
+      "description": "Real-time revenue analytics for SaaS businesses"
+    },
+    {
+      "id": "code-reviewer",
+      "productName": "CodeReview AI",
+      "thumbnail": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23f59e0b' width='400' height='225'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3ECodeReview AI%3C/text%3E%3C/svg%3E",
+      "category": "Developer Tool",
+      "template": "Feature Showcase",
+      "duration": "60s",
+      "format": "16:9",
+      "views": 31290,
+      "upvotes": 745,
+      "description": "AI-powered code reviews that catch bugs before production"
+    },
+    {
+      "id": "social-scheduler",
+      "productName": "SocialScheduler",
+      "thumbnail": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='225' viewBox='0 0 400 225'%3E%3Crect fill='%23ec4899' width='400' height='225'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3ESocialScheduler%3C/text%3E%3C/svg%3E",
+      "category": "Marketing",
+      "template": "Instagram Story",
+      "duration": "30s",
+      "format": "9:16",
+      "views": 19670,
+      "upvotes": 521,
+      "description": "Schedule and optimize social media posts across all platforms"
+    }
+  ],
+  "stats": {
+    "totalVideos": 500,
+    "totalViews": 2400000,
+    "averageUpvotes": 120,
+    "successRate": 94
+  }
+}
