@@ -102,6 +102,7 @@ function initializeEventListeners() {
 
     // Script generation
     document.getElementById('generate-script-btn').addEventListener('click', generateScript);
+    document.getElementById('edit-script-btn').addEventListener('click', toggleScriptEdit);
 
     // Script length buttons
     document.querySelectorAll('.script-length-btn').forEach(btn => {
@@ -146,11 +147,11 @@ function initializeEventListeners() {
     // Generate video
     document.getElementById('generate-video-btn').addEventListener('click', generateVideo);
 
-    // Dark mode
-    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
-
     // Gallery toggle
     document.getElementById('toggle-gallery').addEventListener('click', toggleGallery);
+
+    // Email capture
+    document.getElementById('email-capture-form').addEventListener('submit', handleEmailCapture);
 }
 
 // ====================================
@@ -480,6 +481,32 @@ function generateAIScript(info) {
     return script;
 }
 
+function toggleScriptEdit() {
+    const preview = document.getElementById('script-preview');
+    const editBtn = document.getElementById('edit-script-btn');
+    const isEditing = preview.contentEditable === 'true';
+
+    if (isEditing) {
+        // Save mode
+        preview.contentEditable = 'false';
+        preview.classList.remove('border-2', 'border-purple-300', 'p-3', 'rounded', 'bg-white');
+        editBtn.innerHTML = '<i class="fas fa-edit mr-1"></i> Edit';
+        state.generatedScript = preview.textContent;
+
+        // Update word count and read time
+        document.getElementById('word-count').textContent = state.generatedScript.split(' ').length;
+        document.getElementById('read-time').textContent = `${Math.ceil(state.generatedScript.split(' ').length / 150 * 60)}s`;
+
+        showNotification('Script updated successfully', 'success');
+    } else {
+        // Edit mode
+        preview.contentEditable = 'true';
+        preview.classList.add('border-2', 'border-purple-300', 'p-3', 'rounded', 'bg-white');
+        preview.focus();
+        editBtn.innerHTML = '<i class="fas fa-save mr-1"></i> Save';
+    }
+}
+
 // ====================================
 // FORMAT SELECTION
 // ====================================
@@ -692,22 +719,26 @@ function setupStepIndicators() {
         }
 
         .script-length-btn {
-            padding: 12px;
-            border: 2px solid #e5e7eb;
+            padding: 12px 24px;
+            border: 2px solid #d1d5db;
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.2s;
             cursor: pointer;
+            background: white;
+            color: #374151;
         }
 
         .script-length-btn:hover {
             border-color: #667eea;
+            background: #f9fafb;
         }
 
         .script-length-btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: #667eea;
+            transform: scale(1.05);
         }
     `;
     document.head.appendChild(style);
@@ -759,10 +790,43 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-function toggleDarkMode() {
-    document.body.classList.toggle('dark');
-    const icon = document.querySelector('#dark-mode-toggle i');
-    icon.className = document.body.classList.contains('dark') ? 'fas fa-sun' : 'fas fa-moon';
+function handleEmailCapture(e) {
+    e.preventDefault();
+
+    const emailInput = document.getElementById('email-input');
+    const email = emailInput.value.trim();
+
+    if (!email) {
+        showNotification('Please enter a valid email', 'warning');
+        return;
+    }
+
+    const form = e.target;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
+    submitBtn.disabled = true;
+
+    // Simulate API call (replace with actual API endpoint)
+    setTimeout(() => {
+        // In production, send to your email service (Mailchimp, ConvertKit, etc.)
+        console.log('[EMAIL CAPTURE]', email);
+
+        // Show success message
+        showNotification('🎉 Welcome! Check your email for early access details.', 'success');
+
+        // Reset form
+        emailInput.value = '';
+        submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i> You\'re In!';
+
+        // Reset button after 3 seconds
+        setTimeout(() => {
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }, 3000);
+    }, 1500);
 }
 
 console.log('[INIT] Demo Video Maker loaded successfully');
